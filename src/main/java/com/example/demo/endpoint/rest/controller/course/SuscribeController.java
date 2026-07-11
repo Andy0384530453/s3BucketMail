@@ -22,9 +22,10 @@ public class SuscribeController {
   @SneakyThrows
   public Suscribe createSubscription(@RequestBody Suscribe suscribe) {
 
+    String userEmail = suscribe.getUser().getMail();
+
     Suscribe saved = suscribeRepository.save(suscribe);
 
-    String userEmail = saved.getUser().getMail();
     var event = SendEmailRequested.builder().to(userEmail).build();
     eventProducer.accept(List.of(event));
 
