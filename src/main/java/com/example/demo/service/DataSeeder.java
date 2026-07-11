@@ -23,7 +23,10 @@ public class DataSeeder {
 
   @PostConstruct
   void seed() {
-    if (userRepository.count() > 0 || courseRepository.count() > 0) {
+    long userCount = userRepository.count();
+    long courseCount = courseRepository.count();
+    log.info("Found {} users and {} courses in DB", userCount, courseCount);
+    if (userCount > 0 && courseCount > 0) {
       log.info("Data already present, skipping seed");
       return;
     }
