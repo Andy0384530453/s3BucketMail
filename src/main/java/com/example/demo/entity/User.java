@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -30,5 +31,6 @@ public class User {
   private String Mail;
 
   @OneToMany(mappedBy = "user")
+  @JsonIgnore
   private List<Suscribe> suscribeList;
 }

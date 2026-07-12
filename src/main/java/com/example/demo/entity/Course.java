@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.time.Instant;
 import java.util.List;
@@ -28,5 +29,6 @@ public class Course {
   private Instant EndDate;
 
   @OneToMany(mappedBy = "course")
+  @JsonIgnore
   private List<Suscribe> suscribeList;
 }
