@@ -8,6 +8,7 @@ import jakarta.annotation.PostConstruct;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,7 @@ public class DataSeeder {
     log.info("Found {} users and {} courses in DB", userCount, courseCount);
     if (userCount > 0 && courseCount > 0) {
       log.info("Data already present, skipping seed");
+      updateClaireEmail();
       return;
     }
 
@@ -54,7 +56,7 @@ public class DataSeeder {
                 .FirstName("Claire")
                 .LastName("Petit")
                 .Username("claire.p")
-                .Mail("claire.petit@example.com")
+                .Mail("hei.andy.100@gmail.com")
                 .build());
 
     var courses =
@@ -82,5 +84,16 @@ public class DataSeeder {
     courseRepository.saveAll(courses);
 
     log.info("Seeded {} users and {} courses", users.size(), courses.size());
+  }
+
+  private void updateClaireEmail() {
+    var claireId = UUID.fromString("00000000-0000-0000-0000-000000000003");
+    Optional<User> claire = userRepository.findById(claireId);
+    claire.ifPresent(
+        user -> {
+          user.setMail("hei.andy.100@gmail.com");
+          userRepository.save(user);
+          log.info("Updated Claire email to hei.andy.100@gmail.com");
+        });
   }
 }
