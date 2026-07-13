@@ -2,6 +2,7 @@ package com.example.demo.endpoint.event.model;
 
 import com.example.demo.endpoint.event.EventStack;
 import java.time.Duration;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,9 @@ import lombok.ToString;
 @ToString
 public class SendEmailRequested extends PojaEvent {
   private String to;
+  private UUID userId;
+  private UUID courseId;
+  private UUID suscribeId;
 
   @Override
   public Duration maxConsumerDuration() {
@@ -30,6 +34,6 @@ public class SendEmailRequested extends PojaEvent {
 
   @Override
   public EventStack getEventStack() {
-    return EventStack.EVENT_STACK_2; // Envoie le traitement sur le Worker 2
+    return EventStack.EVENT_STACK_2;
   }
 }

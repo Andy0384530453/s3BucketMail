@@ -36,7 +36,13 @@ public class SuscribeController {
     Suscribe saved = suscribeRepository.save(suscribe);
 
     String userEmail = saved.getUser().getMail();
-    var event = SendEmailRequested.builder().to(userEmail).build();
+    var event =
+        SendEmailRequested.builder()
+            .to(userEmail)
+            .userId(saved.getUser().getUserid())
+            .courseId(saved.getCourse().getCourseID())
+            .suscribeId(saved.getSuscribe_uuid())
+            .build();
     eventProducer.accept(List.of(event));
 
     return saved;
